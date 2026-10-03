@@ -27,12 +27,31 @@
 
     <div id="result"></div>
 
-    <script>
-        document.getElementById("ip-form").addEventListener("submit", (event) => {
-            event.preventDefault();
-            const ip = document.getElementById("ip").value;
-            document.getElementById("result").textContent = "Beírt IP: " + ip;
-        });
-    </script>
+<script>
+    document.getElementById("ip-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const ip = document.getElementById("ip").value;
+        const result = document.getElementById("result");
+        result.textContent = "Ellenőrzés folyamatban...";
+
+        try {
+            const response = await fetch("/api/check", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ ip: ip }),
+            });
+
+            if (!response.ok) {
+                result.textContent = "Hiba történt: " + response.status;
+                return;
+            }
+
+            const data = await response.json();
+            result.textContent = "IP: " + data.ip + " – státusz: " + data.status;
+        } catch (error) {
+            result.textContent = "Nem sikerült elérni a szervert.";
+        }
+    });
+</script>
 </body>
 </html>
