@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>IP-ellenőrző</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: auto; }
+        input { padding: 8px; width: 250px; }
+        button { padding: 8px 16px; }
+        #result { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>IP ellenőrző</h1>
+
+    <form id="ip-form">
+        <input
+            type="text"
+            id="ip"
+            placeholder="pl. 8.8.8.8"
+            required
+            pattern="((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)"
+            title="Érvényes IPv4-címet adj meg, pl. 8.8.8.8"
+        >
+        <button type="submit">Ellenőrzés</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById("ip-form").addEventListener("submit", (event) => {
+            event.preventDefault();
+            const ip = document.getElementById("ip").value;
+            document.getElementById("result").textContent = "Beírt IP: " + ip;
+        });
+    </script>
+</body>
+</html>
