@@ -42,7 +42,10 @@
             });
 
             if (!response.ok) {
-                result.textContent = "Hiba történt: " + response.status;
+                const error = await response.json();
+                result.textContent = typeof error.detail === "string"
+                    ? error.detail
+                    : "Érvénytelen IP-cím.";
                 return;
             }
 
