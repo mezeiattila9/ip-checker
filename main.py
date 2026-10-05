@@ -1,9 +1,15 @@
 from ipaddress import IPv4Address
-from virustotal import get_ip_stats, make_verdict
+
+import requests
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
-import request
+
+from database import init_db, save_result, get_latest_result
+from virustotal import get_ip_stats, make_verdict
+from llm import summarize
+
+init_db()
 app = FastAPI()
 
 
@@ -35,4 +41,12 @@ def check_ip(request: IpRequest):
         raise HTTPException(status_code=502, detail="A VirusTotal nem érhető el.")
 
     verdict = make_verdict(stats)
-    return {"ip": ip, "verdict": verdict, "stats": stats}
+    save_result(ip, verdict, stats)
+    result = get_latest_result(ip)
+    try:
+        result["summary"] = summarize(result)
+    except Exception as error:
+        print("LLM hiba:", error)
+        result["summary"] = None
+
+    return result

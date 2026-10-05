@@ -50,7 +50,12 @@
             }
 
             const data = await response.json();
-            result.textContent = "IP: " + data.ip + " – státusz: " + data.status;
+                result.innerHTML = `
+                <p><strong>IP:</strong> ${data.ip}</p>
+                <p><strong>Verdict:</strong> ${data.verdict}</p>
+                <p><strong>Összefoglaló:</strong> ${data.summary ?? "Az összefoglaló most nem érhető el."}</p>
+                <p><small>Ellenőrizve: ${data.checked_at}</small></p>
+            `;
         } catch (error) {
             result.textContent = "Nem sikerült elérni a szervert.";
         }

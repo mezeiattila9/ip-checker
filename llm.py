@@ -1,0 +1,23 @@
+from dotenv import load_dotenv
+from google import genai
+
+load_dotenv()
+
+client = genai.Client()
+MODEL = "gemini-flash-latest"
+
+
+def summarize(result: dict) -> str:
+    prompt = f"""
+Foglald össze 2-3 mondatban, magyarul, közérthetően ennek az IP-címnek a biztonsági értékelését.
+A verdict végleges, ne változtass rajta és ne vitasd. Csak a megadott adatokra támaszkodj, ne találj ki új információt.
+
+IP-cím: {result["ip"]}
+Verdict: {result["verdict"]}
+VirusTotal  statisztika: {result["stats"]}
+"""
+    response = client.models.generate_content(
+        model=MODEL,
+        contents=prompt,
+    )
+    return response.text
