@@ -4,7 +4,7 @@ from google import genai
 load_dotenv()
 
 client = genai.Client()
-MODEL = "gemini-flash-latest"
+MODEL = "gemini-3.5-flash-lite"
 
 
 def summarize(result: dict) -> str:
