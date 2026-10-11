@@ -15,7 +15,7 @@ uvicorn main:app --reload
 ```
 
 - Felület: http://127.0.0.1:8000
-- API-dokumentáció: http://127.0.0.1:8000/docs
+- API dokumentáció: http://127.0.0.1:8000/docs
 
 ## Tesztek
 
