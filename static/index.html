@@ -51,11 +51,15 @@
 
             const data = await response.json();
                 result.innerHTML = `
-                <p><strong>IP:</strong> ${data.ip}</p>
-                <p><strong>Verdict:</strong> ${data.verdict}</p>
-                <p><strong>Összefoglaló:</strong> ${data.summary ?? "Az összefoglaló most nem érhető el."}</p>
-                <p><small>Ellenőrizve: ${data.checked_at}</small></p>
+                <p><strong>IP:</strong> <span id="r-ip"></span></p>
+                <p><strong>Verdict:</strong> <span id="r-verdict"></span></p>
+                <p><strong>Összefoglaló:</strong> <span id="r-summary"></span></p>
+                <p><small>Ellenőrizve: <span id="r-time"></span></small></p>
             `;
+            document.getElementById("r-ip").textContent = data.ip;
+            document.getElementById("r-verdict").textContent = data.verdict;
+            document.getElementById("r-summary").textContent = data.summary ?? "Az összefoglaló most nem érhető el.";
+            document.getElementById("r-time").textContent = data.checked_at;
         } catch (error) {
             result.textContent = "Nem sikerült elérni a szervert.";
         }
