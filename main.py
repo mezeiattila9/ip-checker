@@ -46,7 +46,6 @@ def check_ip(request: IpRequest):
     try:
         result["summary"] = summarize(result)
     except Exception as error:
-        print("LLM hiba:", error)
         result["summary"] = None
 
     return result

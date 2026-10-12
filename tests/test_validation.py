@@ -15,7 +15,7 @@ def test_text_is_rejected():
 
 def test_out_of_range_is_rejected():
     with pytest.raises(ValidationError):
-        IpRequest(ip="999.1.1")
+        IpRequest(ip="999.1.1.1")
 
 def test_ipv6_is_rejected():
     with pytest.raises(ValidationError):

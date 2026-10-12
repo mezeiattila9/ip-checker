@@ -3,7 +3,6 @@ from google import genai
 
 load_dotenv()
 
-client = genai.Client()
 MODEL = "gemini-3.5-flash-lite"
 
 
@@ -14,8 +13,9 @@ A verdict végleges, ne változtass rajta és ne vitasd. Csak a megadott adatokr
 
 IP-cím: {result["ip"]}
 Verdict: {result["verdict"]}
-VirusTotal  statisztika: {result["stats"]}
+VirusTotal statisztika: {result["stats"]}
 """
+    client = genai.Client() 
     response = client.models.generate_content(
         model=MODEL,
         contents=prompt,
