@@ -10,6 +10,7 @@ BASE_URL = "https://www.virustotal.com/api/v3/ip_addresses/"
 
 
 def get_ip_stats(ip: str) -> dict:
+        """Lekéri a VirusTotalról az IP cím statisztikáját"""
     response = requests.get(
         BASE_URL + ip,
         headers={"x-apikey": API_KEY},
@@ -24,6 +25,7 @@ SUSPICIOUS_THRESHOLD = 0.05
 
 
 def make_verdict(stats: dict) -> str:
+        """Az statisztikából verdictet képez: clean, suspicious, malicious vagy unknown."""
     malicious = stats.get("malicious", 0)
     suspicious = stats.get("suspicious", 0)
     total = (

@@ -24,6 +24,7 @@ def home():
 
 @app.post("/api/check")
 def check_ip(request: IpRequest):
+        """ VirusTotal, verdict, mentés, visszaolvasás, összefoglaló."""
     ip = str(request.ip)
 
     try:
